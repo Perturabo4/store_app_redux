@@ -1,16 +1,20 @@
 import React, {Component} from 'react';
 import BookListItem from '../book-list-item';
 import {connect} from 'react-redux';
+// import {bindActionCreators} from 'redux'; // использование bindActionCreators
+
+import {booksloaded} from '../../actions';
 import withBookstoreService from '../hoc/with-bookstore-service';
+import compose from '../../utils';
 import './book-list.css';
 
 class BookList extends Component {
 
     componentDidMount() {
-        const {bookstoreService} = this.props;
+        const {bookstoreService, booksloaded} = this.props;
         const data = bookstoreService.getBooks();
         
-        this.props.booksLoaded(data);
+        booksloaded(data);
     }
 
     render() {
@@ -35,18 +39,22 @@ class BookList extends Component {
 const mapStateToProps = ({books}) => {
     return {books};
 }
+// использование bindActionCreators
+// const mapDispatchToProps = (dispatch) => { 
+//     return bindActionCreators({ 
+//         booksloaded
+//     }, dispatch)
+// }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        booksLoaded: (newBooks) => {
-            dispatch({
-                type: 'BOOKS_LOADED',
-                payload: newBooks
-            })
-        }
-    }
+const mapDispatchToProps = { // передаем функцию actioncreator 
+    booksloaded
 }
 
-export default withBookstoreService()(
-        connect(mapStateToProps, mapDispatchToProps)(BookList)
-    );
+export default compose (
+    withBookstoreService(),
+    connect(mapStateToProps, mapDispatchToProps)
+)(BookList);
+
+// export default withBookstoreService()(
+//         connect(mapStateToProps, mapDispatchToProps)(BookList)
+//     );
