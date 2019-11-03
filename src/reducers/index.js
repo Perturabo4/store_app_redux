@@ -1,8 +1,11 @@
 const initialState = {
-    books: []
+    books: [
+        {id: 1, title: 'Dark disciple', author: 'Den Abnet'},
+        {id: 2, title: 'Horus heresy', author: 'Den Abnet'}
+    ]
 }
 
-const reducer = (state, action) => {
+const reducer = (state = initialState, action) => {
 
     switch (action.type) {
         case 'BOOKS_LOADED':
