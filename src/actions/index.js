@@ -32,16 +32,16 @@ const bookIncrease = (bookId) => {
     }
 }
 
-const bookDecrease = (bookId) => {
+const allBooksRemovedFromCart = (bookId) => {
     return {
-        type: 'BOOK_DECREASE',
+        type: 'ALL_BOOKS_REMOVED_FROM_CART',
         payload: bookId
     }
 }
 
-const bookDelete = (bookId) => {
+const bookRemovedFromCart = (bookId) => {
     return {
-        type: 'BOOK_DELETE',
+        type: 'BOOK_REMOVED_FROM_CART',
         payload: bookId
     }
 }
@@ -57,6 +57,6 @@ export {
     fetchBooks,
     bookAddedToCart,
     bookIncrease,
-    bookDecrease,
-    bookDelete
+    bookRemovedFromCart,
+    allBooksRemovedFromCart
 }
